@@ -1,0 +1,16 @@
+$gap: 6px;
+
+.container {
+  text-align: center;
+}
+.image-container {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3 * $gap;
+
+  > * {
+    margin: $gap;
+  }
+}
