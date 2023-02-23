@@ -1,6 +1,6 @@
 import "./style.scss";
-import imgURL from "./public/300.png";
-import { setupCounter } from "./counter.js";
+import imgURL from "./img/300.png";
+import process from "./process";
 
 let container;
 function init() {
@@ -10,7 +10,6 @@ function init() {
       <div id="image-container" class="image-container"></div>
       <div>
         <button id="add-button" type="button">Add some images</button>
-        <button id="inject" type="button">Inject script</button>
       </div>
     </div>
   `;
@@ -26,10 +25,12 @@ function addImages(numImages = 5) {
   // loop to create and add dummy images to the container
   for (let i = 1; i <= numImages; i++) {
     const img = document.createElement("img");
-    img.src = `https://via.placeholder.com/150x150?text=Image+${i}`;
+    img.src = imgURL;
     img.alt = ``;
     container.appendChild(img);
   }
 }
 
 init();
+
+process();
