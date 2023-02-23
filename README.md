@@ -18,10 +18,9 @@
 
 ```js
 var script = document.createElement("script");
-script.src =
-  "https://raw.githubusercontent.com/progand/assessment-userway/master/process.js";
+script.src = "/process.js";
 script.type = "text/javascript";
-script.onload = function (script) {
+script.onload = function () {
   processImages();
 };
 document.body.appendChild(script);
