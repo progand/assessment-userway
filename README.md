@@ -1,0 +1,16 @@
+# My assessment result
+
+> **Important!** You will only need `process.js` file that is a UMD module written on vanilla JS with no dependencies.
+> All other tools like _Vite_ was used for development of demo page only (to speed up this process a bit).
+
+## Example of usage on any site with images
+
+```html
+<script
+  src="https://raw.githubusercontent.com/progand/assessment-userway/master/process.js"
+  type="text/javascript"
+></script>
+<script>
+  processImages();
+</script>
+```
