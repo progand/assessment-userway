@@ -39,7 +39,28 @@ export default function process(options) {
 
   // process single element
   function processElement(el) {
-    changeAttr(el, "random text");
+    // old XMLHttpRequest is used for maximal browser compability, however I'd prefer `fetch` if possible
+    const xhr = new XMLHttpRequest();
+    // didn't found random words API in provided PDF document so I google for some available APIs
+    xhr.open(
+      "GET",
+      "https://random-word.ryanrk.com/api/en/word/random/3",
+      true
+    );
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        try {
+          const words = JSON.parse(xhr.responseText);
+          changeAttr(el, words.join(" "));
+        } catch (error) {}
+      } else {
+        planToProcessLater(el);
+      }
+    };
+    xhr.onerror = function () {
+      planToProcessLater(el);
+    };
+    xhr.send();
   }
 
   // function changes an attribute and marks element with data attribute
@@ -48,5 +69,9 @@ export default function process(options) {
       el[attrName] = value;
       el[dataAttr] = "done";
     }
+  }
+
+  function planToProcessLater(el) {
+    // do nothing
   }
 }
