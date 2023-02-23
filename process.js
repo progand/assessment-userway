@@ -1,13 +1,18 @@
 // data attribute to mark elements
 const dataAttr = `data-userway`;
 
+/* 
+Possible future impovements: 
+ - queve api requests
+ - prioritize images by distance to viewport
+ - observe image SRC attribute change
+*/
 export default function process(options) {
   const containerEl = (options && options.containerEl) || document.body;
   const tagName = String((options && options.tagName) || "IMG").toUpperCase();
   const attrName = (options && options.attrName) || "alt";
 
-  const existingElements = findImages(containerEl, tagName);
-  processMultiple(existingElements);
+  processExisting();
 
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -25,7 +30,8 @@ export default function process(options) {
     subtree: true,
   });
 
-  function processMultiple(elements) {
+  function processExisting() {
+    const elements = findImages(containerEl, tagName);
     for (let i = 0; i < elements.length; i++) {
       processElement(elements[i]);
     }
@@ -52,7 +58,9 @@ export default function process(options) {
         try {
           const words = JSON.parse(xhr.responseText);
           changeAttr(el, words.join(" "));
-        } catch (error) {}
+        } catch (error) {
+          planToProcessLater(el);
+        }
       } else {
         planToProcessLater(el);
       }
@@ -61,17 +69,20 @@ export default function process(options) {
       planToProcessLater(el);
     };
     xhr.send();
+    el.setAttribute(dataAttr, "processing");
   }
 
   // function changes an attribute and marks element with data attribute
-  function changeAttr(el, value, attributeOption) {
+  function changeAttr(el, value) {
     if (el) {
       el[attrName] = value;
-      el[dataAttr] = "done";
+      el.setAttribute(dataAttr, "done");
     }
   }
 
   function planToProcessLater(el) {
-    // do nothing
+    el.removeAttribute(dataAttr);
+    // simply plan to process existing images after some timeout
+    setTimeout(processExisting, 2000);
   }
 }
