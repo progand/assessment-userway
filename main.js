@@ -1,6 +1,5 @@
 import "./style.scss";
 import imgURL from "./img/300.png";
-import process from "./process";
 
 let container;
 function init() {
@@ -32,5 +31,3 @@ function addImages(numImages = 5) {
 }
 
 init();
-
-process();
