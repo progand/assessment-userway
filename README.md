@@ -5,12 +5,24 @@
 
 ## Example of usage on any site with images
 
+#### With `<script>` tag:
+
 ```html
-<script
-  src="https://raw.githubusercontent.com/progand/assessment-userway/master/process.js"
-  type="text/javascript"
-></script>
+<script src="/process.js" type="text/javascript"></script>
 <script>
   processImages();
 </script>
+```
+
+#### Load via JS
+
+```js
+var script = document.createElement("script");
+script.src =
+  "https://raw.githubusercontent.com/progand/assessment-userway/master/process.js";
+script.type = "text/javascript";
+script.onload = function (script) {
+  processImages();
+};
+document.body.appendChild(script);
 ```
