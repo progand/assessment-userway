@@ -60,10 +60,9 @@ function process(options) {
   function processElement(el) {
     // old XMLHttpRequest is used for maximal browser compability, however I'd prefer `fetch` if possible
     const xhr = new XMLHttpRequest();
-    // didn't found random words API in provided PDF document so I google for some available APIs
     xhr.open(
       "GET",
-      "https://random-word.ryanrk.com/api/en/word/random/3",
+      "https://random-word-api.herokuapp.com/word?number=1",
       true
     );
     xhr.onload = function () {
